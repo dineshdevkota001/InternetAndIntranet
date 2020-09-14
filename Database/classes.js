@@ -1,29 +1,37 @@
 class Objects{
-    constructor(name, filename){
-        this.filename = filename;
+    constructor(){
+        this.name;
+        this.filename;
+        this.userid;
+    }
+    details(name, filename, userid){
         this.name = name;
+        this.filename = filename;
+        this.userid = userid;
     }
 }
 class User{
-    constructor(name, email, username,password){
+    constructor(){
+        this.name
+        this.username
+        this.email
+        this.password
+    }
+    details(name= this.name, username=this.username, email = this.email, password=this.password){
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
     }
-
-    getDetails(){
-        return this.name, this.email, this.username;
-    }
-
-    setDetails(name= this.name, email = this.email, username=this.username){
-        this.name = name;
-        this.email = email;
-        this.username = username;
-    }
 }
 class Relation{
-    constructor(id1, id2, userid){
+    constructor(){
+        this.id1;
+        this.id2;
+        this.id3;
+    }
+
+    details(id1, id2, userid){
         this.id1 = id1;
         this.id2 = id2;
         this.id3 = userid;

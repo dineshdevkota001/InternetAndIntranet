@@ -1,6 +1,4 @@
-const { resolve } = require('path');
 const {User, Objects, Relation} = require('./classes');
-pool = require('./pool');
 const runQuery = require('./queryFunctions');
 function createDatabase(){
     let query = "CREATE DATABASE IF NOT EXISTS 3Dviewer2;"
@@ -8,23 +6,23 @@ function createDatabase(){
 }
 
 function createTable(){
-    let mesh = "CREATE TABLE Mesh(meshid INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), filename VARCHAR(255));";
-    let image = "CREATE TABLE Image(imageid INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), filename VARCHAR(255));";
+    let mesh = "CREATE TABLE Mesh(meshid INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), filename VARCHAR(255),userid INT);";
+    let image = "CREATE TABLE Image(imageid INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), filename VARCHAR(255), userid INT);";
     let user = "CREATE TABLE User(userid INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), username VARCHAR(255), password VARCHAR(255));";
     let group = "CREATE TABLE Groups(groupid INT AUTO_INCREMENT PRIMARY KEY, meshid INT, imageid INT, userid INT);";
     runQuery(mesh + image + user + group);
 }
 
-module.exports.add = (type, details) => {
+module.exports.adds = (type, details) => {
     type = type.toLowerCase();
     if (type === 'user'){
         runQuery("INSERT INTO User(name,email,username,password) VALUES(?, ?, ?, ?)",Object.values(details))
     }
     else if ( type === "image"){ 
-        runQuery("INSERT INTO Image(name, filename) VALUES (?, ?)", Object.values(details))
+        runQuery("INSERT INTO Image(name, filename, userid) VALUES (?, ?, ?)", Object.values(details))
     }
     else if (type === 'mesh'){
-        runQuery("INSERT INTO Mesh(name, filename) VALUES (?, ?)", Object.values(details))
+        runQuery("INSERT INTO Mesh(name, filename, userid) VALUES (?, ?, ?)", Object.values(details))
     }
     else if (type === 'group'){
         runQuery("INSERT INTO Group(meshid, imageid) VALUES (?, ?, ?)", Object.values(details))
@@ -53,19 +51,19 @@ module.exports.dropbyId = function (type, id){
     return
 }
 
-module.exports.drop = function (type, details){
+module.exports.drops = function (type, details){
     type = type.toLowerCase();
     if (type === 'user'){
-        runQuery("DELETE FROM User WHERE userid=?", Objects.values(classes));
+        runQuery("DELETE FROM User WHERE userid=?", Object.values(classes));
     }
     else if ( type === "image"){ 
-        runQuery("DELETE FROM User WHERE imageid=?", Objects.values(classes));
+        runQuery("DELETE FROM User WHERE imageid=?", Object.values(classes));
     }
     else if (type === 'mesh'){
-        runQuery("DELETE FROM User WHERE meshid=?", Objects.values(classes));
+        runQuery("DELETE FROM User WHERE meshid=?", Object.values(classes));
     }
     else if (type === 'group'){
-        runQuery("DELETE FROM User WHERE groupid=?",Objects.values(classes));
+        runQuery("DELETE FROM User WHERE groupid=?",Object.values(classes));
     }
     else
         console.log('please try a valid type which includes "user", "image", "mesh", "group"')
@@ -98,6 +96,10 @@ module.exports.getImages = async (username) => {
 }
 
 test = async () => {
-    res = await runQuery('SELECT * FROM User',[]);
-    console.log(Object.values(res[0]));
+    res = await this.getUserid('din')
+    image_to_insert = new Objects('first_image', "ssasshdsaserwefasdfadfa.png",res)
+    this.add('image', image_to_insert);
+    res = await runQuery("select * from Image")
+    console.log(res)
 }
+test()
