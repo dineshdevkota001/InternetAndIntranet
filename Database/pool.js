@@ -1,0 +1,12 @@
+const mariadb = require('mariadb');
+
+const pool = mariadb.createPool({
+    host: 'localhost',
+    user: 'dinesh',
+    password: 'hsenid',
+    connectionLimit: 5,
+    database: "3Dviewer",
+    multipleStatements: true
+});
+
+module.exports = pool
