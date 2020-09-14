@@ -1,11 +1,12 @@
-const {User, Objects, Relation} = require('./classes');
 const runQuery = require('./queryFunctions');
 
 const IDTYPE = 'INT AUTO_INCREMENT PRIMARY KEY';
 const STRING = 'VARCHAR(256)';
 const INT = 'INT';
-var TABLES = ['user', 'image', 'mesh', 'group']
+const TABLES = ['user', 'image', 'mesh', 'group']
 
+// utility functions
+// converts class variable and name to a sql query
 let classToTable = (class_var, name) =>{
     let sql_start = "CREATE TABLE ";
     let sql_query = sql_start + name + '('
@@ -21,38 +22,8 @@ let classToTable = (class_var, name) =>{
     sql_query += table_description.join() +');';
     return sql_query;
 }
-
-let makeTable = (class_var, name) =>{
-    // add a id datastype for the database to make
-    class_var._id = IDTYPE;
-    // get the query
-    let query = classToTable(class_var, name)
-    // return the query for use
-    return query
-}
-
-let makeAllTables = async () =>{
-    try{
-        objects = []
-        // make objects before going forward
-        // increase the objects here to make them into a table in database
-        // an unique integer _id is added for each element (subject to change)
-        objects.push([new User(STRING, STRING, STRING, STRING),'user']);
-        objects.push([new Objects(STRING, STRING, INT), 'image']);
-        objects.push([new Objects(STRING, STRING, INT), 'mesh']);
-        objects.push([new Relation(INT, INT, INT), 'group']);
-        let query = '';
-        // iterate over each function 
-        objects.forEach(element => query += makeTable(element[0], element[1]));
-        let res = await runQuery(query)
-        console.log(res)
-    }
-    catch (error){
-        console.log(error)
-    }
-}
-
-let clean = (obj) => {
+// cleans null and undefined values in the Object
+clean = module.exports.clean = (obj) => {
     try {
         for (var propName in obj) {
             if (obj[propName] === null || obj[propName] === undefined) {
@@ -66,8 +37,8 @@ let clean = (obj) => {
         if (obj) return obj
     }
 }
-
-let getArray = (obj) =>{
+// returns array from keys and values of object
+getArray = module.exports.getArray = (obj) =>{
     try{
         keys = Object.keys(obj)
         values = Object.values(obj)
@@ -80,8 +51,32 @@ let getArray = (obj) =>{
     }
 }
 
+// returns condition with elname=? and array as array
+let getWhere = (obj) =>{
+    let clean_obj = clean(obj);
+    let {keys,values} = getArray(clean_obj);
+    let condition = []
+    keys.forEach((element,index)=>{
+        condition.push(element+'=?')
+    })
+    condition = condition.join();
+    return [condition, values]
+}
 
-let add = async (type ,obj)=>{
+// returns the query for making a table from the object
+module.exports.makeTable = (class_var, name) =>{
+    // add a id datastype for the database to make
+    class_var._id = IDTYPE;
+    // get the query
+    let query = classToTable(class_var, name)
+    // return the query for use
+    return query
+}
+
+
+
+// Basic CRUD functionalities are done from here
+module.exports.add = async (type ,obj)=>{
     type = type.toLowerCase();
     let start = 'INSERT INTO '
     let query = ''
@@ -103,18 +98,7 @@ let add = async (type ,obj)=>{
     }
 }
 
-let getWhere = (obj) =>{
-    let clean_obj = clean(obj);
-    let {keys,values} = getArray(clean_obj);
-    let condition = []
-    keys.forEach((element,index)=>{
-        condition.push(element+'=?')
-    })
-    condition = condition.join();
-    return [condition, values]
-}
-
-let drop = async(type,obj) =>{
+module.exports.drop = async(type,obj) =>{
     type = type.toLowerCase();
     if ( TABLES.includes(type) ){
         let {condition, values} = getWhere(obj) 
@@ -127,11 +111,11 @@ let drop = async(type,obj) =>{
     }
 }
 
-let read = async(read, type, obj) =>{
+module.exports.read = async(read, type, obj) =>{
     let read_vals = Object.keys(clean(read));
     let reads = read_vals.join();
     type = type.toLowerCase();
-    if ( TABLES.includes(type) ){ 
+    if ( TABLES.includes(type) && typeof(read) === typeof(obj)){ 
         let {condition, values} = getWhere(obj);
         let query = 'SELECT ' + reads + " FROM " + type + ' WHERE ' + condition +';';
         let res = await runQuery(query,values)
@@ -143,9 +127,9 @@ let read = async(read, type, obj) =>{
     }
 }
 
-let alter = async(update, type, obj) => {
+alter = module.exports.alter = async (update, type, obj) => {
     type = type.toLowerCase();
-    if ( TABLES.includes(type) ){
+    if ( TABLES.includes(type) && typeof(update) === typeof(obj) ){
         
         var [condition1, values1] = getWhere(update)
         let set = ' SET ' + condition1
@@ -155,10 +139,15 @@ let alter = async(update, type, obj) => {
         
         values = values1.concat(values2)
         query = "UPDATE "+ type +set + where;
-        let res = await runQuery(query,values)
-        console.log(res)
+        console.log(query, values)
+        // let res = await runQuery(query,values)
+        // console.log(res)
     }
     else{
         console.log('ERROR! check the type')
     }
 }
+
+update = {name:INT}
+obj = {name:INT, username: STRING}
+this.alter(update, 'user', obj)
