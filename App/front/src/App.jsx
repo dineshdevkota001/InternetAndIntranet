@@ -22,7 +22,7 @@ class App extends Component{
             
         render() {
         return (
-            <div id="root_of_app" style={{background:'#EEEEEE'}}>
+            <div id="root_of_app" className='vh100'>
                 <Navigation/>
                 <Main/>
             </div>

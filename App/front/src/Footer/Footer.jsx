@@ -8,8 +8,7 @@ export default class Navigation extends Component{
     
     render(){
      return(
-      <div>
-      <Navbar bg="light" expand="lg" className='shadow fixed-bottom' style={{background:'#FFFFFF'}}>
+     <Navbar bg="light" expand="lg" className='shadow offset-500' style={{background:'#FFFFFF'}}>
      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
      <Navbar.Toggle aria-controls="basic-navbar-nav" />
      <Navbar.Collapse id="basic-navbar-nav">
@@ -18,9 +17,7 @@ export default class Navigation extends Component{
          <Nav.Link href="#link">Link</Nav.Link>
        </Nav>
      </Navbar.Collapse>
-     <Image src="./user.png"  roundedCircle />
-      </Navbar>
-   </div>
-     );   
+   </Navbar>
+    );   
     }
 };
