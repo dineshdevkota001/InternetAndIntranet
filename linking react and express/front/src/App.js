@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navigation from './Navigation/navbar';
-import logo from './logo.svg';
+import Main from './Main/Main'
 import './App.css';
 
 class App extends Component{
@@ -20,6 +20,7 @@ class App extends Component{
             this.callAPI();
             }
             
+            // <Main/>
         render() {
         return (
             <div className="App" id="root_of_app">
