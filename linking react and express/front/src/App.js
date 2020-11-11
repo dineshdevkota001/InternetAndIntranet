@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Navigation from './Navigation/navbar';
 import logo from './logo.svg';
 import './App.css';
 
@@ -23,7 +23,7 @@ class App extends Component{
         render() {
         return (
             <div className="App" id="root_of_app">
-                
+                <Navigation/>
             </div>
         );
         }
