@@ -12,6 +12,10 @@ class List extends Component{
     render(){
         return(
             <div>
+            {this.returnlist('list')}
+            {this.returnlist('list')}
+            {this.returnlist('goes')}
+            {this.returnlist('here')}
                 {this.returnlist('list')}
                 {this.returnlist('list')}
                 {this.returnlist('goes')}

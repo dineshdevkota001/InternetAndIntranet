@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navigation from './Navigation/Navigation';
 import Main from './Main/Main'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends Component{
 	
         constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component{
             
         render() {
         return (
-            <div id="root_of_app">
+            <div id="root_of_app" style={{background:'#EEEEEE'}}>
                 <Navigation/>
                 <Main/>
             </div>

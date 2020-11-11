@@ -12,7 +12,7 @@ export default class Listgroup extends Component{
     }
     render(){
         return (
-            <div id="{this.state.name}" className='m-1 p-2 border rounded'>
+            <div id="{this.state.name}" className='h-50 m-1 p-2 border rounded' style={{background:'#FFFFFF'}}>
                 <h1>{this.state.name}</h1>
                 <List/>
             </div>
