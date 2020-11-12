@@ -13,7 +13,6 @@ let classToTable = (class_var, name) =>{
     let database_elements = Object.keys(class_var);
     // taking values as types of data in the database
     let database_datatypes = Object.values(class_var);
-    console.log(database_elements)
     let table_description = [];
     // loop through the variable keys
     database_elements.forEach((element,index) =>{
@@ -47,22 +46,21 @@ getArray = (obj) =>{
         console.error(error)
     }
     finally{
-
-        console.log(keys,values)
         return {keys, values}
     }
 }
 
 // returns condition with elname=? and array as array
-let getWhere = (obj) =>{
+let getWhere = (obj, return_clean = true) =>{
     let clean_obj = clean(obj);
     let {keys,values} = getArray(clean_obj);
     let condition = []
     keys.forEach((element,index)=>{
         condition.push(element+'=?')
     })
-    condition = condition.join();
-    console.log(condition, values)
+    if (return_clean){
+        condition = condition.join();
+    }
     return [condition, values]
 }
 
@@ -127,10 +125,12 @@ read = async(read, type, obj) =>{
         values = []
     }
     else{
-        let [condition, values] = getWhere(obj);
+        let [condition, values] = getWhere(obj,false);
+        condition = condition.join(' AND ')
         query = query + ' WHERE ' + condition +';';
     }
     if ( TABLES.includes(type)){
+        console.log(query,values)
         let res = await runQuery(query,values)
         console.log(res)
         return res

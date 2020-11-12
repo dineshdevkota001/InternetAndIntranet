@@ -5,18 +5,14 @@ import Main from './Main/Main'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// let {fetchurl} = require('./connection')
+// let {get} = require('./connection')
 
 class App extends Component{
-	
-        constructor(props) {
-        super(props);
-        this.state = { apiResponse: "" };
-        }
+
 
         // async componentDidMount() {
         //     let url = "/testAPI"
-        //     let res = await fetchurl(url);
+        //     let res = await get(url);
         //     this.setState({apiResponse:res})
         // }
             

@@ -4,8 +4,17 @@ import Nav from 'react-bootstrap/Nav'
 import Image from 'react-bootstrap/Image'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const {get} = require('../connection')
+
 export default class Navigation extends Component{
-    
+  constructor(props){
+    super(props)
+    this.state={connected:false}
+  }
+  async componentDidMount(){
+    let res = await get('/testAPI')
+    this.setState({connected:!!res})
+  }
     render(){
      return(
       <div>
@@ -18,7 +27,7 @@ export default class Navigation extends Component{
          <Nav.Link href="#link">Link</Nav.Link>
        </Nav>
      </Navbar.Collapse>
-     <Image src="./user.png"  roundedCircle />
+     <Image src="./user.png"  className={this.state.connected ? "bg-success": "bg-danger"} roundedCircle />
       </Navbar>
    </div>
      );   

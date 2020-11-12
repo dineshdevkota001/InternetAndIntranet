@@ -1,6 +1,8 @@
 const {User, Objects, Relation} = require('./classes');
 const runQuery = require('./queryFunctions');
 const LLD = require('./LLD')
+const STRING = 'VARCHAR(256)';
+const INT = 'INT';
 
 let makeAllTables = async () =>{
     try{
@@ -23,4 +25,30 @@ let makeAllTables = async () =>{
     }
 }
 
+isUser = async(name) =>{
+    let user1 = new User()
+    let user2 = new User()
+    user1.details(username =true)
+    user2.details(username =name)
+    console.log(user1,user2)
+    res = await LLD.read(user1,'user',user2)
+    if (res.length == 1){
+        return true
+    }
+    else{
+        return false
+    }
 
+}
+
+async function x(){
+    // // await makeAllTables()
+    // user = new User()
+    // user.details(name=true,username=true)
+    // user2 = new User()
+    // user2.details(name='Diensh', username = 'dineshdevkota001')
+    // // LLD.add('user', user2)
+    // res = await LLD.read(user , 'user',user2)
+    console.log(await isUser('dineshdevkota001'))
+}
+x()

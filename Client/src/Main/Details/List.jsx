@@ -19,7 +19,7 @@ class List extends Component{
             onMouseEnter={()=>this.setState({hovered:true})}
             onMouseLeave ={()=>this.setState({hovered:false})}
             onClick = {()=>this.props.clicked(this.props.id+1 )}
-            className= {'list-group-item'+ (this.state.hovered ? ' active':'')}>
+            className= {'my-0 list-group-item'+ (this.state.hovered ? ' list-group-item-primary':'')}>
                 {this.props.element}
             </ul>
         )

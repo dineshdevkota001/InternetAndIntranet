@@ -6,7 +6,7 @@ class Details extends Component{
     render(){
         
         return (
-            <div className='col-3' >
+            <div className='col-3 m-1' >
                 <Listgroup name='Mesh'/>
                 <Listgroup name='Image'/>
             </div>
