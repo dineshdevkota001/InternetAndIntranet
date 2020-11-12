@@ -15,7 +15,7 @@ class App extends Component{
         }
 
         async componentWillMount() {
-            let url = "http://localhost:8000/testAPI"
+            let url = "/testAPI"
             let res = await fetchurl(url);
             this.setState({apiResponse:res})
         }

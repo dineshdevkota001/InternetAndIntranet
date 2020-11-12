@@ -12,8 +12,8 @@ export default class Listgroup extends Component{
     }
     render(){
         return (
-            <div id="{this.state.name}" className='h-50 m-2 mb-5 p-2 rounded shadow'>
-                <h1>{this.state.name}</h1>
+            <div id="{this.state.name}" className='h-50 my-4 rounded shadow'>
+                <h1 className='shadow-sm p-2'>{this.state.name}</h1>
                 <List/>
             </div>
         )
