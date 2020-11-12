@@ -7,7 +7,7 @@ export default class ThreeContainer extends Component{
     render () {
         return (
         <div className='col-8 justify-content-center bg-gray d-flex flex-column'>
-            <div className='flex-grow-1' id = 'three-main'>
+            <div className='flex-grow-1 m-5 p-2  border rounded shadow-lg' id = 'three-main'>
                 <Canvas>
                     <TestObject />
                     <Lights />

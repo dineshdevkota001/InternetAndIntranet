@@ -1,39 +1,27 @@
 import React, { Component } from 'react'
-const {fetchurl} = require('../../connection')
+// const {fetchurl} = require('../../connection')
 class List extends Component{
     constructor(props){
         super(props)
         this.state = {
-            list: []
+            hovered:false
         }
     }
 
-    async componentDidMount(){
-        let list = await fetchurl('/getres')
-        this.setState({list: list})
-    }
-
-    returnlist = (details) =>{
-        return (
-        <ul>
-            {details}
-        </ul>
-        );
-    }
+    // async componentDidMount(){
+    //     // let list = await fetchurl('/getres')
+    //     // this.setState({list: list})
+    // }
 
     render(){
         return(
-            <div>
-            {this.returnlist('list')}
-            {this.returnlist('list')}
-            {this.returnlist('goes')}
-            {this.returnlist('here')}
-            {this.returnlist('list')}
-            {this.returnlist('list')}
-            {this.returnlist('goes')}
-            {this.returnlist('here')}
-            
-            </div>
+            <ul
+            onMouseEnter={()=>this.setState({hovered:true})}
+            onMouseLeave ={()=>this.setState({hovered:false})}
+            onClick = {()=>this.props.clicked(this.props.id+1 )}
+            className= {'list-group-item'+ (this.state.hovered ? ' active':'')}>
+                {this.props.element}
+            </ul>
         )
     }
 }

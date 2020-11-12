@@ -5,7 +5,7 @@ import Main from './Main/Main'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-let {fetchurl} = require('./connection')
+// let {fetchurl} = require('./connection')
 
 class App extends Component{
 	
@@ -14,18 +14,17 @@ class App extends Component{
         this.state = { apiResponse: "" };
         }
 
-        async componentWillMount() {
-            let url = "/testAPI"
-            let res = await fetchurl(url);
-            this.setState({apiResponse:res})
-        }
+        // async componentDidMount() {
+        //     let url = "/testAPI"
+        //     let res = await fetchurl(url);
+        //     this.setState({apiResponse:res})
+        // }
             
         render() {
         return (
             <div id="root_of_app" className='vh100'>
                 <Navigation/>
                 <Main/>
-                {this.apiResponse}
             </div>
         );
         }
