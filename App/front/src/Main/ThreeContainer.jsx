@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import { Canvas} from 'react-three-fiber';
-import TestObject from "./Three/render";
+import TestObject from "./Three/Components/Environment";
+import Lights from "./Three/Components/Lights";
 
 export default class ThreeContainer extends Component{
     render () {
         return (
-        <div className='col verticen'>
-            <div className='m-2 p-5 h-100  border rounded shadow-lg' id = 'three-main'>
+        <div className='col-8 justify-content-center bg-gray d-flex flex-column'>
+            <div className='flex-grow-1' id = 'three-main'>
                 <Canvas>
                     <TestObject />
+                    <Lights />
                 </Canvas>
             </div>
         </div>
