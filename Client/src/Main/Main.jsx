@@ -7,7 +7,7 @@ class Main extends Component{
         return (
             <div className = 'container-fluid'>
                 <div id='Main' className='row m-1 vh-90 fill-grow-1 justify-content-center verticen' >
-                    <Details/>
+                    <Details loggedIn={this.props.loggedIn}/>
                     <ThreeContainer />
                 </div>
             </div>

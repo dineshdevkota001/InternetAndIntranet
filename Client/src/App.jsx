@@ -8,7 +8,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // let {get} = require('./connection')
 
 class App extends Component{
-
+    constructor(props){
+        super(props)
+        this.state = {
+            loggedIn : true
+        }
+    }
 
         // async componentDidMount() {
         //     let url = "/testAPI"
@@ -18,9 +23,53 @@ class App extends Component{
             
         render() {
         return (
-            <div id="root_of_app" className='vh100'>
-                <Navigation/>
-                <Main/>
+            <div id="home" className='vh100'>
+                <Navigation loggedIn={this.state.loggedIn}/>
+                <Main loggedIn={this.state.loggedIn}/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div id='about'>
+                    about section lives here
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
         }

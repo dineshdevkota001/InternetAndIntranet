@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-// const {fetchurl} = require('../../connection')
-class List extends Component{
-    constructor(props){
+import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+// const {get} = require('../../connection')
+
+class List extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            hovered:false
+            hovered: false
         }
     }
 
@@ -13,15 +15,15 @@ class List extends Component{
     //     // this.setState({list: list})
     // }
 
-    render(){
-        return(
-            <ul
-            onMouseEnter={()=>this.setState({hovered:true})}
-            onMouseLeave ={()=>this.setState({hovered:false})}
-            onClick = {()=>this.props.clicked(this.props.id+1 )}
-            className= {'my-0 list-group-item'+ (this.state.hovered ? ' list-group-item-primary':'')}>
+    render() {
+        return (
+            <ListGroupItem
+                onMouseEnter={() => this.setState({ hovered: true })}
+                onMouseLeave={() => this.setState({ hovered: false })}
+                onClick={() => this.props.clicked(this.props.id)}
+                className={'my-0 list-group-item' + (this.state.hovered ? ' list-group-item-primary' : '') + (this.props.selected ? ' active' : '')}>
                 {this.props.element}
-            </ul>
+            </ListGroupItem>
         )
     }
 }
