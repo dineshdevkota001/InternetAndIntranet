@@ -8,27 +8,23 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.pages = ['Login', 'SignUp']
+
+    this.email = ''
     this.state = {
       page: this.pages[0].toLowerCase(),
-      form: {
-        username: ''
-      }
+      username : ''
     }
   }
 
 
-  handleSubmit = (event) => {
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-      
-    // }
-    event.preventDefault();
-    const formData = new FormData(event.target)
-    // const formData = new FormData(form)
-    console.log(formData)
-    const formDataObj = Object.fromEntries(formData.entries())
-    console.log(formDataObj)
-    post('/post',formDataObj)
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    let postobj = JSON.parse(JSON.stringify(this.state));
+    if (postobj.page == 'signup'){
+      postobj.email = this.email
+    }
+    let response =await post('/post',postobj)
   };
 
   
@@ -36,8 +32,9 @@ export default class Login extends Component {
     this.setState({ page: page })
   }
 
-  onChange = e => {
-    console.log(e)
+  onChange = (e) => {
+    let value = e.target.value
+    this.setState({username:value})
   }
 
   getTitle = () => {
@@ -51,51 +48,32 @@ export default class Login extends Component {
       </Tabs>);
   }
 
-  renderLogin = () => {
-    switch (this.state.page) {
-      case ('login'):
-        return (
-          <Form onSubmit={this.handleSubmit} >
+  renderSignup = () => {
+    if ((this.state.page === 'signup'))    
+    return (
+          <Form.Group controlId="formGroupEmail" >
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" onChange={(e)=>this.email = e.target.value}/>
+          </Form.Group>);
+
+    }
+
+  renderForm =()=>{
+    return (
+      <Form onSubmit={this.handleSubmit} >
             <Form.Group >
               <Form.Label>Username</Form.Label>
-              <Form.Control placeholder="Username" />
+              <Form.Control placeholder="Username" onChange={e=>this.onChange(e)} />
               <Form.Text className="text-muted">
                 Enter your Username
               </Form.Text>
             </Form.Group>
+            {this.renderSignup()}
             <Button variant="primary" type="submit">
               Submit
         </Button>
             <Button className='mx-3' onClick={() => this.props.setModalShow(false)}>Close</Button>
           </Form>);
-
-      default:
-        return (
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group>
-              <Form.Label>Username</Form.Label>
-              <Form.Control placeholder="Username" />
-              <Form.Text className="text-muted">
-                Enter your Username
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Email" />
-              <Form.Text className="text-muted">
-                Enter your Email
-              </Form.Text>
-            </Form.Group>
-
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-            <Button className='mx-3' onClick={() => this.props.setModalShow(false)}>Close</Button>
-          </Form>);
-
-    }
   }
 
   render() {
@@ -113,7 +91,7 @@ export default class Login extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {this.renderLogin()}
+          {this.renderForm()}
         </Modal.Body>
       </Modal>
     );
