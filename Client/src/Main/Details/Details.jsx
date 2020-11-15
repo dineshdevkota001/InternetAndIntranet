@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Listgroup from './Listgroup'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
