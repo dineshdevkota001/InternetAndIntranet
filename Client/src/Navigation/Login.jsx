@@ -10,18 +10,18 @@ export default class Login extends Component {
     this.pages = ['Login', 'SignUp']
 
     this.email = ''
+    this.isValid = false
+    this.dirty = false
     this.state = {
       page: this.pages[0].toLowerCase(),
       username : ''
     }
   }
 
-
-
   handleSubmit = async (e) => {
     e.preventDefault();
     let postobj = JSON.parse(JSON.stringify(this.state));
-    if (postobj.page == 'signup'){
+    if (postobj.page === 'signup'){
       postobj.email = this.email
     }
     let response =await post('/post',postobj)
@@ -35,6 +35,8 @@ export default class Login extends Component {
   onChange = (e) => {
     let value = e.target.value
     this.setState({username:value})
+    this.isValid = post('/user/check',{username: value})
+    this.dirty = true
   }
 
   getTitle = () => {
@@ -67,6 +69,9 @@ export default class Login extends Component {
               <Form.Text className="text-muted">
                 Enter your Username
               </Form.Text>
+              {this.isValid &&
+              <Form.Control.Feedback type='invalid' tooltip>Username exists</Form.Control.Feedback>
+              }
             </Form.Group>
             {this.renderSignup()}
             <Button variant="primary" type="submit">
