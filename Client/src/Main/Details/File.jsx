@@ -2,9 +2,9 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 const { post } = require('../../connection')
-
-
+// Have not understood fileupload till now. research8ing
 function FileUpload() {
     const [file, setFile] = useState(''); // storing the uploaded file    // storing the recived file from backend
     const [data, getFile] = useState({ name: "", path: "" });
@@ -28,7 +28,7 @@ function FileUpload() {
             console.log(res);
             getFile({
                 name: res.data.name,
-                path: 'http://localhost:4500' + res.data.path
+                path: 'http://localhost:8000' + res.data.path
             })
         }).catch(err => console.log(err))
     }
@@ -41,9 +41,7 @@ function FileUpload() {
                     custom
                     onChange={handleChange}
                 />
-                <div className="progessBar" style={{ width: progress }}>
-                    {progress}
-                </div>
+                <ProgressBar now={progress} />
                 <Button onClick={uploadFile} className="upbutton"> Upload
                 </Button>
                 <hr />

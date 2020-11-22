@@ -16,7 +16,7 @@ class App extends Component{
     }
         render() {
         return (
-            <div id="home" className='vh100'>
+            <div id="home" className='vh100' style={{maxHeight:'100vh'}}>
                 <Navigation loggedIn={this.state.loggedIn}/>
                 <Main loggedIn={this.state.loggedIn}/>
                 <br/>

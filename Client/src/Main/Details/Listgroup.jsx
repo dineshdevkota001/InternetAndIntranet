@@ -15,35 +15,33 @@ const Listgroup = props =>{
     }, {
         name: 'Cannot connect to backend'
     }])
+
     // component did mount
+    // Read
     useEffect(()=>{
-        let x = async ()=>{
-            let url = '/get' + props.name.toLowerCase()
-            let update_list, connection
-            let res = await get(url)
-            try {
-                res = JSON.parse(res)
-                setlist(res.response)
-                connection = true
-            } 
-            catch {
-                console.log('disconnected')
-                connection = false
-            }
-        }
-        x()
+        let url = '/api/' + props.name.toLowerCase()
+        let update_list, connection
+        get(url).then(res =>{
+            res = JSON.parse(res);
+            setlist(res.response);
+            connection = true;
+        }).catch(error=>{
+            console.log(error)
+            connection = false;
+        })
     },[list])
 
     // manage selected item and its index
     let [selected, setselected] = useState(0)
+    
     let [c, setc] = useState()
     useEffect(()=>{
         setc({
             type: props.name,
             selected: list[selected]
         })
-        console.log(c)
     },[selected])
+
 
 
     // Return the box of component
