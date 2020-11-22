@@ -14,16 +14,9 @@ class App extends Component{
             loggedIn : true
         }
     }
-
-        // async componentDidMount() {
-        //     let url = "/testAPI"
-        //     let res = await get(url);
-        //     this.setState({apiResponse:res})
-        // }
-            
         render() {
         return (
-            <div id="home" className='vh100'>
+            <div id="home" className='vh100' style={{maxHeight:'100vh'}}>
                 <Navigation loggedIn={this.state.loggedIn}/>
                 <Main loggedIn={this.state.loggedIn}/>
                 <br/>
