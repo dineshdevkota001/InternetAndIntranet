@@ -6,10 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 
 var indexRouter = require('./routes/index');
-var postRouter = require('./routes/post');
-var testAPIRouter = require("./routes/testAPI");
-var getimage = require('./routes/getimage');
-var getmesh = require('./routes/getmesh');
+var api = require('./routes/api')
 var app = express();
 
 // view engine setup
@@ -24,10 +21,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/post', postRouter);
-app.use("/testAPI", testAPIRouter);
-app.use('/getimage',getimage);
-app.use('/getmesh',getmesh);
+app.use('/api', api)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -43,5 +38,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const  ROOT = '/mnt/Multimedia/Documents/Projects/College/InIServer/Assets'
 
 module.exports = app;

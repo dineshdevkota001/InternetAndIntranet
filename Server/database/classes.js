@@ -1,42 +1,32 @@
 class Objects{
-    constructor(){
-        this.name;
-        this.filename;
-        this.userid;
-    }
-    details(name, filename, userid){
+    constructor(name=null, filename=null, userid=null){
         this.name = name;
         this.filename = filename;
         this.userid = userid;
+        if(name === true||filename  === true|| userid  === true){
+            this._id=true;
+        }
     }
 }
 
 class User{
-    constructor(){
-        this.name
-        this.username
-        this.email
-        this.password
-    }
-    details(name= this.name, username=this.username, email = this.email, password=this.password){
-        this.name = name;
+    constructor(username=null, email=null ){
         this.username = username;
         this.email = email;
-        this.password = password;
+        if(username  === true|| email  === true){
+            this._id=true;
+        }
     }
 }
 
 class Relation{
-    constructor(){
-        this.id1;
-        this.id2;
-        this.id3;
-    }
-
-    details(id1, id2, userid){
-        this.id1 = id1;
-        this.id2 = id2;
-        this.id3 = userid;
+    constructor(imageid=null, meshid=null, userid=null){
+        this.imageid = imageid;
+        this.meshid = meshid;
+        this.userid = userid;
+        if(name === true||username  === true|| email  === true){
+            this._id=true;
+        }
     }
 }
 

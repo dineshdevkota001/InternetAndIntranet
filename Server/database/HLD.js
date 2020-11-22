@@ -4,7 +4,7 @@ const LLD = require('./LLD')
 const STRING = 'VARCHAR(256)';
 const INT = 'INT';
 
-let makeAllTables = async () =>{
+makeAllTables = async () =>{
     try{
         objects = []
         // make objects before going forward
@@ -52,3 +52,5 @@ async function x(){
     console.log(await isUser('dineshdevkota001'))
 }
 x()
+
+module.exports = {makeAllTables, isUser}

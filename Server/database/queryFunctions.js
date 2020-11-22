@@ -1,4 +1,13 @@
-pool = require('./pool')
+const mariadb = require('mariadb');
+
+const pool = mariadb.createPool({
+    host: 'localhost',
+    user: 'dinesh',
+    password: 'hsenid',
+    connectionLimit: 5,
+    database: "viewer",
+    multipleStatements: true
+});
 
 async function runQuery(query,params){
     let conn;
@@ -12,10 +21,6 @@ async function runQuery(query,params){
         if (conn) conn.end()
         return res
     }
-}
-
-async function bulkQuery(query, classlist){
-    Object.values[classslist]
 }
 
 module.exports = runQuery
