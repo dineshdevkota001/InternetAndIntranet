@@ -1,10 +1,11 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useContext } from 'react'
 import { Modal, Button, Form, Tabs, Tab } from 'react-bootstrap'
 import Render from './Render'
+import UserContext from '../userContext'
 const { get, post } = require('../connection')
 
 const ModalPage = props => {
-
+  const setlogin = useContext(UserContext).setlogin
   const pages = ['Login', 'SignUp']
   let [page, setpage] = useState(pages[0].toLowerCase())
   console.log(page)
@@ -22,11 +23,11 @@ const ModalPage = props => {
   const handleSubmit = (postobj) => {
     switch (page) {
       case 'login':
-        get('/api/user/' + postobj.username).then(result => { console.log(result) })
+        get('/api/user/' + postobj.username).then(result => { if (result) setlogin({login:result, username:'username'}) })
         break
       case 'signup':
         post('/api/signup', postobj).then(result => {
-          console.log(result)
+          if (result) setlogin({login:result, username:'username'})
         })
     }
   }

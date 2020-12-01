@@ -1,7 +1,14 @@
 const localhost = "http://localhost:8000"
+// const localhost = 'https://jsonplaceholder.typicode.com'
+
+let abort = new AbortController()
+const abortsignal = abort.signal
+const abortFunction = () =>{
+        abort.abort()
+}
 async function get(url) {
         url = localhost + url;
-        let response = await fetch(url);
+        let response = await fetch(url,{signal: abortsignal});
         return response.text();
 }
 
@@ -24,6 +31,7 @@ async function post(url, data) {
 
         return response.json(); // parses JSON response into native JavaScript objects
 }
+
 async function drop(url, data) {
         url = localhost + url;
         // let res = await fetch(url,data)
@@ -44,4 +52,4 @@ async function drop(url, data) {
         return response.json(); // parses JSON response into native JavaScript objects
 }
 
-module.exports = { get, post };
+module.exports = { get, post, localhost, abortFunction,drop };

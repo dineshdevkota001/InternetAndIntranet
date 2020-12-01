@@ -3,54 +3,42 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import ProgressBar from 'react-bootstrap/ProgressBar'
-const { post } = require('../../connection')
-// Have not understood fileupload till now. research8ing
-function FileUpload() {
-    const [file, setFile] = useState(''); // storing the uploaded file    // storing the recived file from backend
-    const [data, getFile] = useState({ name: "", path: "" });
-    const [progress, setProgess] = useState(0); // progess bar
-    const el = useRef(); // accesing input element
+const { post} = require('../../connection')
+// Have not understood fileupload till now. researching
+
+const FileUpload = props =>{
+    // storing the uploaded file
+    const [file, setFile] = useState(null); 
+    // storing the recived file from backend
+
+    const el = useRef();
     const handleChange = (e) => {
-        setProgess(0)
-        const file = e.target.files[0]; // accesing file
-        console.log(file);
-        setFile(file); // storing file
+        const file = e.target.files[0];
+        setFile(file);
+        console.log(file)
     }
+    
     const uploadFile = () => {
-        const formData = new FormData(); formData.append('file', file); // appending file
-        axios.post('http://localhost:8000/post', formData, {
-            onUploadProgress: (ProgressEvent) => {
-                let progress = Math.round(
-                    ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-                setProgess(progress);
-            }
-        }).then(res => {
-            console.log(res);
-            getFile({
-                name: res.data.name,
-                path: 'http://localhost:8000' + res.data.path
-            })
-        }).catch(err => console.log(err))
+        const formData = new FormData();
+        formData.append('file', file);
+        post('/api/'+props.type+'/post', formData).then(response=> console.log(response))
     }
     return (
         <Form>
             <div className="file-upload">
                 <Form.File
                     id="Browse"
-                    label={'Upload new '}
+                    label={file ? file.name : 'Upload new '+props.type }
                     custom
                     onChange={handleChange}
                 />
-                <ProgressBar now={progress} />
                 <Button onClick={uploadFile} className="upbutton"> Upload
                 </Button>
-                <hr />
-                {/* displaying received image*/}
-                {data.path && <img src={data.path} alt={data.name} />}
             </div>
         </Form>
     );
-} export default FileUpload;
+}
+export default FileUpload;
 
 
 
@@ -66,3 +54,11 @@ function FileUpload() {
 // Submit
 // </Button> 
 // </Form>
+
+// Progress function here
+// , {
+//     onUploadProgress: (ProgressEvent) => {
+//         let progress = Math.round(progressEvent.loaded / ProgressEvent.total * 100) + '%';
+//         setProgess(progress);
+//     }
+// }

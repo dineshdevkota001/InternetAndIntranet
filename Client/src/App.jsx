@@ -1,71 +1,28 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 // Project imports
 import Navigation from './Navigation/Navigation';
 import Main from './Main/Main'
-
+import {UserProvider} from './userContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // let {get} = require('./connection')
 
-class App extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            loggedIn : true
-        }
-    }
-        render() {
-        return (
+
+
+
+const App =()=>{
+    let [loggedIn,setloggedIn] = useState({login:true, username:'dinesh'})
+    return (
             <div id="home" className='vh100' style={{maxHeight:'100vh'}}>
-                <Navigation loggedIn={this.state.loggedIn}/>
-                <Main loggedIn={this.state.loggedIn}/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                <UserProvider value={{login:loggedIn, setlogin: setloggedIn}}>
+                    <Navigation/>
+                    <Main />
+                </UserProvider>
                 <div id='about'>
                     about section lives here
                 </div>
-
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
             </div>
         );
-        }
 }
 
 export default App;
