@@ -6,11 +6,16 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/:username',async (req,res)=>{
+    // authentication here and use another path for athentication. and use post
     let {username} = req.params
     isUserValid(username).then(isValid => {
         return res.send(isValid)})
 })
-
+router.get('/check/:username',async (req,res)=>{
+    let {username} = req.params
+    isUserValid(username).then(isValid => {
+        return res.send(isValid)})
+})
 router.post('/signup',(req,res)=>{
     let {body} = req
     let signupdetails = {username: body.username,email: body.email}
