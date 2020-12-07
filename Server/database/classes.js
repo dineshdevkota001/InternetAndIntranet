@@ -10,9 +10,10 @@ class Objects{
 }
 
 class User{
-    constructor(username=null, email=null ){
+    constructor(username=null, email=null,password=null ){
         this.username = username;
         this.email = email;
+        this.password = password
         if(username  === true|| email  === true){
             this._id=true;
         }
