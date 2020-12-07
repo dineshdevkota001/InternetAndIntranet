@@ -25,6 +25,7 @@ const RenderLogin = props => {
     // handle events
     const handleSubmit = e => {
         e.preventDefault();
+        setlogin('')
         let postobj = { username: username, password: password }
         let temp = false
         axios.get(localhost + '/api/user/check/' + postobj.username).then(

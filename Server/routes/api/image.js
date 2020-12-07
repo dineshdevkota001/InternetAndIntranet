@@ -9,9 +9,10 @@ const {withAuth} = require('../../authentication')
 
 let upload = require('../../multer')[type]
 
-router.get('/', (req,res)=>{
-    req.userid = 1
+router.get('/', withAuth, (req,res)=>{
+    console.log(req.baseUrl,'&', req.url,'&', req.originalUrl)
         getfromCondition(type,{userid:req.userid}).then(databaseResponse=>{
+            console.log(databaseResponse)
             res.status(200).send(databaseResponse)
         }).catch((error)=>{
         console.log(error)
@@ -41,9 +42,10 @@ router.put('/:id', withAuth, (req,res)=>{
 })
 
 router.delete('/:id', withAuth, (req,res)=>{
+    console.log(req.baseUrl,'&', req.url,'&', req.originalUrl)
     let {id} = req.params
     deleteResource(type, id).then(
-        result => {return res.send('Deleted this resource')}
+        result => {return res.send(result)}
     )
 })
 

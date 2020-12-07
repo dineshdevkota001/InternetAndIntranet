@@ -1,5 +1,5 @@
 import React, { useState, useContext, } from 'react'
-import { Modal, Button, Tabs, Tab } from 'react-bootstrap'
+import { Modal, Button, Tabs, Tab, Spinner} from 'react-bootstrap'
 import RenderLogin from './RenderLogin'
 import RenderOptions from './RenderOptions'
 import UserContext from '../userContext'
@@ -34,11 +34,13 @@ const ModalPage = props => {
         <Modal.Title id="contained-modal-title-vcenter">
           {(loggedin===false) && getTitle()}
           {loggedin && 'Hello, '+user}
+          {(loggedin==='') && 'Processing, '+user}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {(loggedin===false) && <RenderLogin page={page} setmodal={props.setmodal}/>}
         {loggedin && <RenderOptions setmodal={props.setmodal}/>}
+        {(loggedin==='') && <div className='d-flex justify-content-center m-5'><Spinner animation="border" /></div>}
       </Modal.Body>
       <Modal.Footer>
         <Button className='mx-3' onClick={() => props.setmodal(false)}>Close</Button>

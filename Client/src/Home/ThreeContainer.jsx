@@ -15,6 +15,7 @@ const ThreeContainer = props => {
                     <TestObject />
                     <Lights />
                 </Canvas> */}
+                <img src={localhost + '/Image/' + selections['image']} alt='here is' />
             </div>
         </div>
     )

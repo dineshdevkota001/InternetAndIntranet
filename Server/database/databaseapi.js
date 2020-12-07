@@ -69,6 +69,7 @@ postResource = async (type, object) => {
     // Basic condition checks here
     let postObject = new Objects(object.name, object.filename, object.userid)
     const returnObj = await LLD.post(type, postObject)
+    console.log(returnObj)
     return returnObj;
 }
 
@@ -81,7 +82,6 @@ putResource = async (toput, type, objectid) => {
     return returnObj;
 }
 deleteResource = async (type, objectid) => {
-    // Basic condition checks here
     let condition = { _id: objectid }
     const returnObj = await LLD.drop(type, condition)
     return returnObj;

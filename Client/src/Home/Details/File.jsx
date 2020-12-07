@@ -14,46 +14,29 @@ const FileUpload = props =>{
     const uploadFile = () => {
         const formData = new FormData();
         formData.append('file', file);
-        axios.post(localhost+ '/api/'+props.type+'/post', formData,withAuth).then(response=> console.log(response))
+        axios.post(localhost+ '/api/'+props.type+'/post', formData,withAuth).then(
+            res => {
+                console.log('File upload ',res)
+                setFile(null)
+            }
+            )
     }
     return (
         <Form>
-            <div className="file-upload">
+            <div className="file-upload row">
                 <input
                     name = 'file'
-                    id={props.type}
+                    id={props.type + 'Fileup'}
+                    className='col-9'
                     label={file ? file.name : 'Upload new '+props.type }
                     type='file'
                     accept={props.type==='image' ? 'image/*': '.obj,.fbx'}
                     onChange={e => setFile(e.target.files[0])}
                 />
-                <Button onClick={uploadFile} className="upbutton"> Upload
+                <Button onClick={uploadFile} className="upbutton col-2"> Upload
                 </Button>
             </div>
         </Form>
     );
 }
 export default FileUpload;
-
-
-
-
-//     <Form onSubmit={this.handleSubmit}>
-//     <Form.File
-//         id="Browse"
-//         label={'Upload new ' + this.name}
-//         custom
-//         onChange={handleChange}
-//     />
-//     <Button classname='my-2' variant="primary" type="submit">
-// Submit
-// </Button> 
-// </Form>
-
-// Progress function here
-// , {
-//     onUploadProgress: (ProgressEvent) => {
-//         let progress = Math.round(progressEvent.loaded / ProgressEvent.total * 100) + '%';
-//         setProgess(progress);
-//     }
-// }

@@ -9,18 +9,14 @@ const {withAuth} = require('../../authentication')
 
 let upload = require('../../multer')[type]
 
-
-router.get('/',withAuth, (req,res)=>{
-    try{
-        console.log('mesh.js', req.userid)
+router.get('/', withAuth, (req,res)=>{
+    req.userid = 1
         getfromCondition(type,{userid:req.userid}).then(databaseResponse=>{
-            databaseResponse = [...databaseResponse]
+            console.log(databaseResponse)
             res.status(200).send(databaseResponse)
-        })
-    }
-    catch(error){
+        }).catch((error)=>{
         console.log(error)
-    }
+    })
 })
 
 router.post('/post',withAuth ,(req,res)=>{
@@ -33,13 +29,11 @@ router.post('/post',withAuth ,(req,res)=>{
             }
         let topost = {name: req.file.originalname.split('.').slice(0,-1).join('.')}
         topost.filename = req.file.filename
-
         topost.userid = req.userid
         postResource(type, topost).then(
             result => res.status(200).send(req.file)
         )
     })
-
 })
 
 router.put('/:id', withAuth, (req,res)=>{
@@ -50,7 +44,7 @@ router.put('/:id', withAuth, (req,res)=>{
 router.delete('/:id', withAuth, (req,res)=>{
     let {id} = req.params
     deleteResource(type, id).then(
-        result => {return res.send('Deleted this resource')}
+        result => {return res.send(result)}
     )
 })
 

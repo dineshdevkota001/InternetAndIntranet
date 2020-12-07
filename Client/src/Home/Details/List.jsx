@@ -15,7 +15,7 @@ const List = props => {
                 {props.element}
             </div>
             <div className='m-0 p-0 h-100 text-right col-2'>
-                <Button variant={props.selected ? 'danger' : "outline-danger"} size='sm' onClick={()=> props.deleteResource(props.key)} >
+                <Button variant={props.selected ? 'danger' : "outline-danger"} size='sm' onClick={()=> props.deleteResource(props.id)} >
                     Delete
                 </Button>
             </div>

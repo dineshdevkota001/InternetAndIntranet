@@ -7,6 +7,7 @@ const {localhost,withAuth} = require('../connection')
 const ReactOptions = (props)=>{
     const {setlogin} = useContext(userContext)
     const handleLogout = () =>{
+        setlogin('')
         axios.get(localhost+'/api/user/logout', withAuth).then(
             res=>{ if (res.status === 200)setlogin(false)  }
         ).catch(error=>{console.log(error)})
