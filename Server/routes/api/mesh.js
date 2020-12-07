@@ -8,17 +8,14 @@ const multer = require('multer')
 const {withAuth} = require('../../authentication')
 
 let upload = require('../../multer')[type]
-router.get('/',(req,res)=>{
-    return false
-})
 
-router.get('/', withAuth, (req,res)=>{
+
+router.get('/',withAuth, (req,res)=>{
     try{
-        getfromCondition(type,{name:req.params.name}).then(result=>{
-            console.log(result[0])
-            if (result[0]) filename = result[0].filename;
-            else filename = 'default.jpg'
-            return res.send(filename)
+        console.log('mesh.js', req.userid)
+        getfromCondition(type,{userid:req.userid}).then(databaseResponse=>{
+            databaseResponse = [...databaseResponse]
+            res.status(200).send(databaseResponse)
         })
     }
     catch(error){
@@ -26,18 +23,18 @@ router.get('/', withAuth, (req,res)=>{
     }
 })
 
-router.post('/post', withAuth ,(req,res)=>{
+router.post('/post',withAuth ,(req,res)=>{
+
     upload(req, res, function (err) {
             if (err instanceof multer.MulterError) {
-                console.log('enter 1', err)
                 return res.status(500).json(err)
             } else if (err) {
-                console.log(' enter 2' ,err)
                 return res.status(500).json(err)
             }
         let topost = {name: req.file.originalname.split('.').slice(0,-1).join('.')}
         topost.filename = req.file.filename
-        console.log(topost)
+
+        topost.userid = req.userid
         postResource(type, topost).then(
             result => res.status(200).send(req.file)
         )

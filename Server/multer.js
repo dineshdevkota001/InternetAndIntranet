@@ -7,14 +7,14 @@ const filefunction = (req, file, cb) => {
 
 var imagestorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/Image')
+    cb(null, 'public/Image/')
   },
   filename: filefunction
 })
 
 var meshstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/Mesh')
+    cb(null, 'public/Mesh/')
   },
   filename: filefunction
 })

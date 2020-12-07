@@ -41,7 +41,7 @@ addUser = async (signupdetails) => {
     type = 'user';
     postObject = new User(signupdetails.username, signupdetails.email);
     postObject.password = signupdetails.password 
-    console.log(postObject)
+    // console.log(postObject)
     await LLD.post(type, postObject);
     let returnObj = await LLD.get({_id:true}, type, postObject)
     if (returnObj) return returnObj[0];
@@ -60,6 +60,7 @@ getResource = async (type, userid = null) => {
 
 getfromCondition = async (type, condition) => {
     let toread = new Objects(true, true)
+    toread._id = true
     const returnObj = await LLD.get(toread, type, condition)
     return returnObj;
 }

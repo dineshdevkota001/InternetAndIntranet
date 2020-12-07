@@ -10,9 +10,9 @@ const { addUser, isUserValid, validate_user } = require('../../database/database
 const tokenize = (res,userid, returnobj = {}) => {
     const payload = {userid: userid }
     const token = jwt.sign(payload, secret, {
-        expiresIn: '10d'
+        expiresIn: '240h'
     });
-    res.cookie('token', token, { expires: new Date(Date.now() + 900000), httpOnly: true, secure: true }).status(200).send(returnobj)
+    res.cookie('token', token, { expires: new Date(Date.now() + 864000), httpOnly: true, secure: true }).status(200).send(returnobj)
 }
 
 // routes from here
@@ -24,16 +24,23 @@ router.get('/', withAuth, (req, res) => {
 router.post('/login',(req, res) => {
     validate_user(req.body.username).then(databaseResponse=>{
         bcrypt.compare(req.body.password, databaseResponse.password, (err,result)=>{
-            if (result) tokenize(res, databaseResponse._id, result)
+            if (result) {
+                console.log(result)
+                tokenize(res, databaseResponse._id, {result:true, username: req.body.username})}
             else res.send(false)
         })
     }
     )
 })
 
+router.get('/logout', withAuth, (req,res)=>{
+    res.clearCookie('token', {httpOnly: true, secure: true }).status(200).send(false)
+})
+
 router.get('/check/:username',(req, res) => {
-    isUserValid(req.params.username).then(isValid => {
-        return res.send(isValid)
+    isUserValid(req.params.username).then(databaseResponse => {
+        console.log(databaseResponse)
+        return res.status(200).send(databaseResponse)
     })
 })
 

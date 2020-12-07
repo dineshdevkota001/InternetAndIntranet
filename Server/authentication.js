@@ -12,7 +12,6 @@ const withAuth = function(req, res, next) {
         res.status(401).send('Unauthorized: Invalid token');
       } else {
         req.userid = decoded.userid;
-    console.log('from image,js userid is ',req.userid)
         next();
       }
     });

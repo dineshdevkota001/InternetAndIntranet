@@ -8,20 +8,14 @@ const multer = require('multer')
 const {withAuth} = require('../../authentication')
 
 let upload = require('../../multer')[type]
-router.get('/',(req,res)=>{
-    return false
-})
 
-router.get('/',withAuth, (req,res)=>{
-    try{
+router.get('/', (req,res)=>{
+    req.userid = 1
         getfromCondition(type,{userid:req.userid}).then(databaseResponse=>{
-            databaseResponse = [...databaseResponse]
             res.status(200).send(databaseResponse)
-        })
-    }
-    catch(error){
+        }).catch((error)=>{
         console.log(error)
-    }
+    })
 })
 
 router.post('/post',withAuth ,(req,res)=>{
@@ -34,14 +28,11 @@ router.post('/post',withAuth ,(req,res)=>{
             }
         let topost = {name: req.file.originalname.split('.').slice(0,-1).join('.')}
         topost.filename = req.file.filename
-
-        console.log('from image,js userid is ',req.userid)
         topost.userid = req.userid
         postResource(type, topost).then(
             result => res.status(200).send(req.file)
         )
     })
-
 })
 
 router.put('/:id', withAuth, (req,res)=>{
