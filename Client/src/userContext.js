@@ -1,6 +1,6 @@
 import React from 'react'
 
-let UserContext = React.createContext({login:false, username:''})
+let UserContext = React.createContext(false)
 const UserProvider = UserContext.Provider
 
 export {UserProvider}

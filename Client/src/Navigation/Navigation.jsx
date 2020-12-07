@@ -1,51 +1,43 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Image from 'react-bootstrap/Image';
-
+import { Image, Navbar, Nav, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import ModalPage from './ModalPage'
-
-const { get, abortFunction } = require('../connection')
+import UserContext from '../userContext';
 const Navigation = props => {
-
+  let { loggedin,  user } = useContext(UserContext)
   let [modal, setmodal] = useState(false)
+  let [hover, sethover] = useState(false)
 
-  let checkOnline = async () => {
-    let x = await get('/testapi')
-    return x
+  const Pages = ['Home', 'About', 'Nepal']
+  const renderLinks = () =>{
+    return (<Nav className="mr-auto">
+        {Pages.map((pagename,index) => <Nav.Link key={index}  onClick={()=>props.setpage(pagename)}>{pagename}</Nav.Link>)}
+    </Nav>)
   }
-  let [connection, setconnection] = useState(false)
-  useEffect(() => {
-    get('/testapi').then(result =>{
-      setconnection(result)
-    })
-    return () => {
-      abortFunction()
-    }
-  }, [])
-
   return (
     <div>
-      <Navbar bg="light" expand="lg" className='shadow fixed-bottom' style={{ background: '#FFFFFF' }}>
-        <Navbar.Brand href="#home">BSOD</Navbar.Brand>
+      <Navbar bg="light" expand="lg" className='shadow' style={{ background: '#FFFFFF' }}>
+        <Navbar.Brand onClick={()=>props.setpage('Home')}>Vie3</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#about">About</Nav.Link>
-          </Nav>
+          {renderLinks()}          
         </Navbar.Collapse>
+        <div
+        onClick={() => setmodal(true)}
+        className='p-2'
+        onMouseEnter={() => sethover(true)}
+        onMouseLeave={() => sethover(false)}
+        >
+          {user}
+          <Badge className='m-2' variant={loggedin ? 'success' : 'danger'} > </Badge>
+          <Image
+            src='https://picsum.photos/30'
+            roundedCircle
+          />
+        </div>
 
-        <Image
-          src='./user.png'
-          className={connection ? "bg-success" : "bg-danger"}
-          roundedCircle
-          onClick={() => setmodal(true)}
-        />
       </Navbar>
 
       {modal &&

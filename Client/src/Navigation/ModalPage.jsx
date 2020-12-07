@@ -1,14 +1,16 @@
-import React, { Component, useState, useContext } from 'react'
-import { Modal, Button, Form, Tabs, Tab } from 'react-bootstrap'
-import Render from './Render'
+import React, { useState, useContext, } from 'react'
+import { Modal, Button, Tabs, Tab } from 'react-bootstrap'
+import RenderLogin from './RenderLogin'
+import RenderOptions from './RenderOptions'
 import UserContext from '../userContext'
-const { get, post } = require('../connection')
 
 const ModalPage = props => {
-  const setlogin = useContext(UserContext).setlogin
+  const { loggedin,user } = useContext(UserContext)
+  
   const pages = ['Login', 'SignUp']
   let [page, setpage] = useState(pages[0].toLowerCase())
-  console.log(page)
+
+  
   const getTitle = () => {
     return (
       <Tabs defaultActiveKey={page} id="loginpage" onSelect={(k) => setpage(k)}>
@@ -18,18 +20,6 @@ const ModalPage = props => {
           title={element}
         />)}
       </Tabs>);
-  }
-
-  const handleSubmit = (postobj) => {
-    switch (page) {
-      case 'login':
-        get('/api/user/' + postobj.username).then(result => { if (result) setlogin({login:result, username:'username'}) })
-        break
-      case 'signup':
-        post('/api/signup', postobj).then(result => {
-          if (result) setlogin({login:result, username:'username'})
-        })
-    }
   }
 
   return (
@@ -42,11 +32,13 @@ const ModalPage = props => {
     >
       <Modal.Header className='m-0' closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {getTitle()}
+          {(loggedin===false) && getTitle()}
+          {loggedin && 'Hello, '+user}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Render page={page} handleSubmit={handleSubmit} />
+        {(loggedin===false) && <RenderLogin page={page} setmodal={props.setmodal}/>}
+        {loggedin && <RenderOptions setmodal={props.setmodal}/>}
       </Modal.Body>
       <Modal.Footer>
         <Button className='mx-3' onClick={() => props.setmodal(false)}>Close</Button>
