@@ -2,7 +2,7 @@ import React, { userState } from 'react'
 import { Card, Button, Image } from 'react-bootstrap'
 const UserCard = props => {
     return (
-        <Card className='m-2 p-2 shadow' style={{ width: '18rem' }}>
+        <Card className='m-5 p-2 col-2 shadow' style={{ width: '18rem' }}>
             {/* <Card.Img variant="top" src="https://picsum.photos/200" roundCircle /> */}
             <Image
             src={props.url}

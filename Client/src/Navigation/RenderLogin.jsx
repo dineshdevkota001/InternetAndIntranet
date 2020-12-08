@@ -16,7 +16,7 @@ const RenderLogin = props => {
 
     // other variables
     const postFunction = (postobj) => {
-        axios.post(localhost + '/api/user/'+ props.page, postobj,withAuth).then(res => {
+        axios.post(localhost + '/api/user/'+ props.page, postobj, withAuth).then(res => {
         if (res.status === 200) setlogin(true)
         localStorage.setItem('username', res.data.username);
         setuser(res.data.username)
@@ -45,7 +45,7 @@ const RenderLogin = props => {
                         if (temp) {
                             postFunction(postobj)
                         }
-                        break
+                        break;
                 }
             }
         )

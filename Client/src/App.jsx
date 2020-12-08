@@ -16,7 +16,7 @@ const { localhost, withAuth } = require('./connection')
 const App = () => {
   let [loggedin, setloggedin] = useState(false)
   let [username, setusername] = useState('')
-  let [page, setpage] = useState('About')
+  let [page, setpage] = useState('Home')
   useEffect(() => {
     document.title = 'Vie3'
 
@@ -30,7 +30,7 @@ const App = () => {
         setloggedin(false)
       }
     }).catch(error => {
-      console.log(error.response)
+      console.log(error)
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
 

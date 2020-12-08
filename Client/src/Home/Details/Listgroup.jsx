@@ -12,7 +12,8 @@ const {localhost,withAuth} = require('../../connection')
 
 const Listgroup = props => {
     // Contexts 
-    let {loggedin} = useContext(UserContext)
+    // let {loggedin} = useContext(UserContext)
+    let loggedin = true
     let globalSelection = useContext(SelectContext)
 
     // Local State
@@ -47,10 +48,8 @@ const Listgroup = props => {
 
     // handle deletion
     const deleteResource = (index) =>{
-        console.log(index, list, list[index]._id)
         axios.delete(localhost+ url+'/'+ list[index]._id , withAuth).then(res=>{
             if (res.status === 200){
-                console.log(res)
                 let prevlist = [...list]
                 prevlist.splice(index, 1)
                 setlist(prevlist)
@@ -75,6 +74,7 @@ const Listgroup = props => {
                 )
                 }
             </ListGroup>}
+            
             { loggedin && <FileUpload type={name} handleAddition={handleAddition}/>}
         </div>
     )
