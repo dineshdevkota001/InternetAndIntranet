@@ -15,7 +15,7 @@ import SelectContext from './selectContext '
 const ThreeContainer = props => {
     let selections = useContext(SelectContext).selection
     return (
-        <div className='col-8 justify-content-center bg-gray d-flex flex-column'>
+        <div className='col-8 min-vh-100 justify-content-center bg-gray d-flex flex-column'>
             <div className='flex-grow-1 m-5 p-2  border rounded shadow-lg' id='three-main'>
                 <Canvas>
                     <CameraControls />
