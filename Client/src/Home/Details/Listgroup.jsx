@@ -18,7 +18,7 @@ const Listgroup = props => {
 
     // Local State
     let [list, setlist] = useState([{_id:1, name:'disconnected from network', filename:'default.jpg'}])
-    let [selected, setselected] = useState(0);
+    let [selected, setselected] = useState(-1);
     let [loading, setloading] = useState(true)
     // other variables
     const name = props.name.toLowerCase()
@@ -60,7 +60,9 @@ const Listgroup = props => {
     }
 
     const handleAddition = data =>{
-        setlist([...list, data])
+        let prevlist = list
+        prevlist.push(data)
+        setlist(prevlist)
     }
 
     // return
