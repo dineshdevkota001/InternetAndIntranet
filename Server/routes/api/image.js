@@ -32,7 +32,7 @@ router.post('/post', withAuth, (req, res) => {
         topost.userid = req.userid
         postResource(type, topost).then(
             result => {
-                req.file.listData = result
+                req.file.listData = result[0]
                 res.status(200).send(req.file)
             }
         )

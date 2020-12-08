@@ -119,7 +119,6 @@ post = async (type, conditionObj ) => {
             // whats = whats.join();
             query += '(' + names + ') VALUES(' + whats + ');';
             res = await runQuery(query, values)
-            console.log(res)
         }
         else {
             console.log('ERROR! check the type')

@@ -12,8 +12,8 @@ const {localhost,withAuth} = require('../../connection')
 
 const Listgroup = props => {
     // Contexts 
-    // let {loggedin} = useContext(UserContext)
-    let loggedin = true
+    let {loggedin} = useContext(UserContext)
+    // let loggedin = true
     let globalSelection = useContext(SelectContext)
 
     // Local State
@@ -35,7 +35,7 @@ const Listgroup = props => {
             console.log(error)
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [loggedin])
 
     useEffect(() => {
         let prevState = { ...globalSelection.selection }
@@ -60,9 +60,7 @@ const Listgroup = props => {
     }
 
     const handleAddition = data =>{
-        let prevlist = list
-        prevlist.push(data)
-        setlist(prevlist)
+        setlist(prevlist=>[...list, data])
     }
 
     // return

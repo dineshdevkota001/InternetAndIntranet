@@ -68,8 +68,8 @@ getfromCondition = async (type, condition) => {
 postResource = async (type, object) => {
     // Basic condition checks here
     let postObject = new Objects(object.name, object.filename, object.userid)
-    const returnObj = await LLD.post(type, postObject)
-    if (returnObj) returnObj = this.getfromCondition({_id:true,name:true, filename:true}, type,postObject)
+    await LLD.post(type, postObject)
+    const returnObj = getfromCondition(type,postObject)
     return returnObj;
 }
 
