@@ -2,7 +2,6 @@ import React, {Suspense, useContext } from 'react';
 import { Canvas, useFrame } from "react-three-fiber";
 import * as THREE from "three";
 import MeshLoader from './Three/MeshLoader'
-import CameraControls from './Three/CameraControls'
 import Fallback from './Three/Fallback'
 import {Spinner} from 'react-bootstrap'
 // import { Canvas} from 'react-three-fiber';
