@@ -13,11 +13,10 @@ const Home = props =>{
 
     return (
         <div className = 'container-fluid'>
-            <div id='Home' className='row m-1 vh-90 fill-grow-1 justify-content-center verticen' >
+            <div id='Home' className='row fill-grow-1 justify-content-center' >
                 <SelectProvider value={{selection: selection ,setselection: setSelection}}>
-                <Details />
-                <ThreeContainer />
-                
+                    <Details />
+                    <ThreeContainer />
                 </SelectProvider>
             </div>
         </div>

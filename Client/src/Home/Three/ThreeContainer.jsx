@@ -9,18 +9,16 @@ import SelectContext from '../selectContext '
 const ThreeContainer = props => {
     let selections = useContext(SelectContext).selection
     return (
-        <div className='col-8 justify-content-center bg-gray d-flex flex-column'>
-            <div className='flex-grow-1 m-5 p-2  border rounded shadow-lg' id='three-main'>
-                <Canvas>
+        <div className='col-8 m-2 bg-gray d-flex flex-column'>
+        <div className='m-2 p-2 rounded shadow-lg' id='three-main'>
+                <Canvas style={{height:'87vh', width:'60vw'}}>
                     <CameraControls />
-                    {/* <ambientLight intensity={0.5} />
-                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} /> */}
+                    <ambientLight intensity={0.5} />
+                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
                     <pointLight position={[-10, -10, -10]} />
                     <Suspense fallback = {<Fallback />}>
                     <MeshLoader  selections={selections}/>
                     </Suspense>
-                    {/* <Fallback/> */}
-                    {/* <MeshLoader position={[2.5, 0, 0]} selections={selections}/> */}
                 </Canvas>
             </div>
         </div>

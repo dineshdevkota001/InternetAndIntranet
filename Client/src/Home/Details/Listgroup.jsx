@@ -60,24 +60,22 @@ const Listgroup = props => {
     }
 
     const handleAddition = data =>{
-        setlist(prevlist => [...list, data]).then(()=>{
-            console.log('list after ',list)
-        })
-        
+        setlist(prevlist => [...list, data])
     }
 
     // return
     return (
         <div id="{props.name}" className='my-3 p-2 rounded shadow' >
-            <h1 className='shadow-sm my-1 p-2'>{props.name}</h1>
-            {loading ? <Spinner animation='grow' /> : <ListGroup variant='flush' className='overflow-auto' style={{ height: '30vh' }} >
+            <h1 className='border-bottom my-1 p-2'>{props.name}</h1>
+            {loading ? <div className='d-flex justify-content-center' style={{ height: '30vh' }} > <Spinner className='my-auto'animation='grow' /></div>
+             : <ListGroup variant='flush' className='overflow-auto' style={{ height: '27vh' }} >
                 {list.map((element, index) =>
                     <List key={index} id={index} selected={index === selected} clicked={setselected} deleteResource={deleteResource}
-                        element={element.name} />
+                    element={element.name} />
                 )}
             </ListGroup>}
             
-            { loggedin && <FileUpload type={name} handleAddition={handleAddition}/>}
+            { loggedin ? <FileUpload type={name} handleAddition={handleAddition}/> : <div ></div>}
         </div>
     )
 }

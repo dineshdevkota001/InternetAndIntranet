@@ -9,12 +9,12 @@ const List = props => {
         onMouseEnter={() => sethover(true)}
         onMouseLeave={() => sethover(false)}
         onClick={() => props.clicked(props.id)}
-        className={'my-1 list-group-item' + (hover ? ' list-group-item-primary' : '') + (props.selected ? ' active' : '')}>
+        className={'list-group-item' + (hover ? ' list-group-item-primary' : '') + (props.selected ? ' active' : '')}>
         <div className='row m-0 p-0 '>
             <div className='col-10'>
                 {props.element}
             </div>
-            <div className='m-0 p-0 h-100 text-right col-2'>
+            <div className='m-0 p-0 text-right col-2'>
                 <Button variant={props.selected ? 'danger' : "outline-danger"} size='sm' onClick={()=> props.deleteResource(props.id)} >
                     Delete
                 </Button>

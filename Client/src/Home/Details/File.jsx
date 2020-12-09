@@ -24,6 +24,7 @@ const FileUpload = props =>{
                 console.log('File upload ',res.data.listData)
                 props.handleAddition(res.data.listData)
                 setFile(null)
+                console.log('file set to null')
             }).catch((err)=>{
                 console.log(err)
             })
@@ -41,7 +42,7 @@ const FileUpload = props =>{
                     className='col-3 custom-file-input'
                     label={file ? file.name : 'Upload new '+props.type }
                     type='file'
-                    accept={props.type==='image' ? 'image/*': '.obj,.fbx'}
+                    accept={props.type==='image' ? 'image/*': '.obj,.glb,.gltf'}
                     onChange={e => setFile(e.target.files[0])}
                 />
             <Fade in={uploading}><ProgressBar now={progress}></ProgressBar></Fade>
