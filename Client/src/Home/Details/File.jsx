@@ -22,7 +22,7 @@ const FileUpload = props =>{
         axios.post(localhost+ '/api/'+props.type+'/post', formData, {...withAuth,onUploadProgress: progressEvent=>setprogress(progressEvent.loaded)}).then(
             res => {
                 console.log('File upload ',res.data.listData)
-                props.handleAddition(res.data.listData[0])
+                props.handleAddition(res.data.listData)
                 setFile(null)
             }).catch((err)=>{
                 console.log(err)

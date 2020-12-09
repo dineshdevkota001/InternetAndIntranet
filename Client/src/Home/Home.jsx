@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import Details from './Details/Details'
-import ThreeContainer from './ThreeContainer';
+import ThreeContainer from './Three/ThreeContainer';
 import {SelectProvider} from './selectContext '
 
 const Home = props =>{

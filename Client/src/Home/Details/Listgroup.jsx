@@ -60,7 +60,10 @@ const Listgroup = props => {
     }
 
     const handleAddition = data =>{
-        setlist(prevlist=>[...list, data])
+        setlist(prevlist => [...list, data]).then(()=>{
+            console.log('list after ',list)
+        })
+        
     }
 
     // return
@@ -71,8 +74,7 @@ const Listgroup = props => {
                 {list.map((element, index) =>
                     <List key={index} id={index} selected={index === selected} clicked={setselected} deleteResource={deleteResource}
                         element={element.name} />
-                )
-                }
+                )}
             </ListGroup>}
             
             { loggedin && <FileUpload type={name} handleAddition={handleAddition}/>}
