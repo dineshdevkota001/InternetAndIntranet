@@ -23,7 +23,7 @@ getuserid = async (username) => {
     let user2 = new User(username)
     let returnObj = await LLD.get(user1, 'user', user2)
     if (returnObj) {
-        return returnObj
+        return returnObj[0]._id
     }
 }
 
@@ -38,8 +38,8 @@ validate_user = async (username) =>{
 }
 
 addUser = async (signupdetails) => {
-    type = 'user';
-    postObject = new User(signupdetails.username, signupdetails.email);
+    const type = 'user';
+    const postObject = new User(signupdetails.username, signupdetails.email);
     postObject.password = signupdetails.password 
     // console.log(postObject)
     await LLD.post(type, postObject);
@@ -48,16 +48,22 @@ addUser = async (signupdetails) => {
     return false;
 }
 
-
-// Resources start here
-getResource = async (type, userid = null) => {
-    let toread = new Objects(true, true)
-    let condition = null
-    if (userid) condition = { userid: userid }
-    let returnObj = await LLD.get(toread, type, condition)
+deleteUser = async(id) =>{
+    type = 'user';
+    let condition = {_id:id}
+    const returnObj = await LLD.drop(type, condition)
     return returnObj;
 }
 
+// Resources start here
+getResource = async (type, _id = null) => {
+    let toread = new Objects(true, true)
+    let condition = null
+    if (_id) condition = { _id: _id }
+    let returnObj = await LLD.get(toread, type, condition)
+    console.log(returnObj)
+    return returnObj[0].filename;
+}
 getfromCondition = async (type, condition) => {
     let toread = new Objects(true, true)
     toread._id = true
@@ -86,5 +92,10 @@ deleteResource = async (type, objectid) => {
     const returnObj = await LLD.drop(type, condition)
     return returnObj;
 }
-
-module.exports = { isUserValid, addUser, validate_user, getResource, getfromCondition, postResource, putResource, deleteResource }
+deletefromUser = async (type, userid) => {
+    let condition = { userid:userid }
+    const returnObj = await LLD.get({filename: true}, type, condition)
+    await LLD.drop(type, condition)
+    return returnObj;
+}
+module.exports = { isUserValid, addUser, validate_user, getuserid, deleteUser, getResource, getfromCondition, postResource, putResource, deleteResource, deletefromUser }

@@ -1,9 +1,8 @@
-import React, { userState } from 'react'
+import React from 'react'
 import { Card, Button, Image } from 'react-bootstrap'
 const UserCard = props => {
     return (
-        <Card className='m-5 p-2 col-2 shadow' style={{ width: '18rem' }}>
-            {/* <Card.Img variant="top" src="https://picsum.photos/200" roundCircle /> */}
+        <Card className='mx-5 my-2 p-2 col-2 shadow' style={{ width: '18rem' }}>
             <Image
             src={props.url}
             roundedCircle

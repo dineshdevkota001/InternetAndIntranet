@@ -19,7 +19,6 @@ const App = () => {
   let [page, setpage] = useState('Home')
   useEffect(() => {
     document.title = 'Vie3'
-
     axios.get(localhost + '/api/user', withAuth).then(res => {
       console.log('localhost check', res)
       if (res.status === 200) {

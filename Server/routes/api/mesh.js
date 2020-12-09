@@ -7,10 +7,10 @@ const type = Type.toLowerCase()
 const multer = require('multer')
 const { withAuth } = require('../../authentication')
 
-let upload = require('../../multer')[type]
+const {upload, deleteFile} = require('../../multer')
 
 router.get('/', withAuth, (req, res) => {
-    console.log(req.baseUrl, '&', req.url, '&', req.originalUrl)
+     
     getfromCondition(type, { userid: req.userid }).then(databaseResponse => {
         console.log(databaseResponse)
         res.status(200).send(databaseResponse)
@@ -20,8 +20,7 @@ router.get('/', withAuth, (req, res) => {
 })
 
 router.post('/post', withAuth, (req, res) => {
-
-    upload(req, res, function (err) {
+    upload[type](req, res, function (err) {
         if (err instanceof multer.MulterError) {
             return res.status(500).json(err)
         } else if (err) {
@@ -45,11 +44,14 @@ router.put('/:id', withAuth, (req, res) => {
 })
 
 router.delete('/:id', withAuth, (req, res) => {
-    console.log(req.baseUrl, '&', req.url, '&', req.originalUrl)
     let { id } = req.params
-    deleteResource(type, id).then(
-        result => { return res.send(result) }
-    )
+    getResource(type, id).then(filename => {
+        console.log(Type + '/'+ filename)
+        deleteFile(Type + '/'+ filename)
+        deleteResource(type, id).then(
+            result => { return res.send(result) }
+        ).catch(err=> {console.log('Image delete ',err)})
+    }).catch(err=> {console.log('Image get',err)})
 })
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const multer = require('multer')
+const fs = require('fs')
 
 const filefunction = (req, file, cb) => {
   let filename = Math.random().toString(36).substring(2, 7);
@@ -24,4 +25,10 @@ let upload = {
   'image': multer({ storage: imagestorage }).single('file')
 }
 
-module.exports = upload
+const deleteFile = path => {
+  fs.unlink(__dirname+'/public/' + path,err=>{
+    if (err) console.log('filesync error on multer.js ',err)
+    console.log('File deleted', path)
+  })
+}
+module.exports = {upload, deleteFile}

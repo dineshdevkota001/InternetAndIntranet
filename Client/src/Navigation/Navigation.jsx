@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Image, Navbar, Nav, Badge } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,7 +7,6 @@ import UserContext from '../userContext';
 const Navigation = props => {
   let { loggedin,  user } = useContext(UserContext)
   let [modal, setmodal] = useState(false)
-  let [hover, sethover] = useState(false)
 
   const Pages = ['Home', 'About']
   const renderLinks = () =>{
@@ -27,8 +26,6 @@ const Navigation = props => {
         <div
         onClick={() => setmodal(true)}
         className='p-2'
-        onMouseEnter={() => sethover(true)}
-        onMouseLeave={() => sethover(false)}
         >
           {user}
           <Badge className='m-2' variant={loggedin ? 'success' : 'danger'} > </Badge>

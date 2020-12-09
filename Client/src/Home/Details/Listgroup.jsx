@@ -13,7 +13,6 @@ const {localhost,withAuth} = require('../../connection')
 const Listgroup = props => {
     // Contexts 
     let {loggedin} = useContext(UserContext)
-    // let loggedin = true
     let globalSelection = useContext(SelectContext)
 
     // Local State
@@ -25,6 +24,8 @@ const Listgroup = props => {
     const url = '/api/' + name
 
     useEffect(() => {
+        setlist([])
+        setloading(true)
         axios.get(localhost+ url, withAuth).then(res => {
             console.log('Resource reply', res.data)
             if (res.status === 200) {
@@ -65,9 +66,9 @@ const Listgroup = props => {
 
     // return
     return (
-        <div id="{props.name}" className='my-3 p-2 rounded shadow' >
-            <h1 className='border-bottom my-1 p-2'>{props.name}</h1>
-            {loading ? <div className='d-flex justify-content-center' style={{ height: '30vh' }} > <Spinner className='my-auto'animation='grow' /></div>
+        <div id="{props.name}" className={((name === 'image') ? 'mt-4 ': '' )+ 'p-2 rounded shadow'} >
+            <h1 className='border-bottom my-1 p-2 justify-content-center d-flex'>{props.name}</h1>
+            {loading ? <div className='d-flex justify-content-center' style={{ height: '30vh' }} > <p className='my-auto mx-2'>Loading</p><Spinner className='my-auto'animation='grow' /></div>
              : <ListGroup variant='flush' className='overflow-auto' style={{ height: '27vh' }} >
                 {list.map((element, index) =>
                     <List key={index} id={index} selected={index === selected} clicked={setselected} deleteResource={deleteResource}

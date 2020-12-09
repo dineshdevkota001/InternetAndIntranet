@@ -6,9 +6,6 @@ import axios from 'axios'
 import { Collapse,Fade } from 'react-bootstrap';
 const { localhost,withAuth} = require('../../connection')
 
-
-// Have not understood fileupload till now. researching
-
 const FileUpload = props =>{
     // storing the uploaded file
     const [file, setFile] = useState(null);
@@ -45,7 +42,7 @@ const FileUpload = props =>{
                     accept={props.type==='image' ? 'image/*': '.obj,.glb,.gltf'}
                     onChange={e => setFile(e.target.files[0])}
                 />
-            <Fade in={uploading}><ProgressBar now={progress}></ProgressBar></Fade>
+            {uploading && <Fade in={uploading}><ProgressBar now={progress}></ProgressBar></Fade>}
                 <label className="custom-file-label" for={props.type + 'Fileup'}>{file? file.name:"Choose "+props.type}</label>
             </div>
             <Collapse in={selected}><Button onClick={uploadFile} className="upbutton col-2"> Upload

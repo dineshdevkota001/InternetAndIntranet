@@ -1,11 +1,5 @@
-import React, { Suspense, useRef } from "react";
-import {
-  Canvas,
-  useLoader,
-  useFrame,
-  extend,
-  useThree
-} from "react-three-fiber";
+import React from "react";
+
 
 const Fallback = () => {
     return (

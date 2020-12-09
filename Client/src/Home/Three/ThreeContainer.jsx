@@ -1,8 +1,6 @@
 import React, {Suspense, useContext } from 'react';
-import { Canvas, useFrame } from "react-three-fiber";
-import * as THREE from "three";
+import { Canvas} from "react-three-fiber";
 import MeshLoader from './MeshLoader'
-import CameraControls from './CameraControls'
 import Fallback from './Fallback'
 import SelectContext from '../selectContext '
 import {OrbitControls} from '@react-three/drei'

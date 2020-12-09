@@ -9,17 +9,25 @@ const RenderLogin = props => {
     const { setlogin,setuser } = useContext(UserContext)
 
     // States used
-    let [username, setusername] = useState('dineshdevkota001')
-    let [password, setpassword] = useState('hello')
+    let [username, setusername] = useState('1')
+    let [password, setpassword] = useState('')
     let [isValid, setisValid] = useState(false)
     let [email, setemail] = useState('')
 
     // other variables
+    const LOGIN = (USER) =>{
+        setlogin(!!USER)
+        localStorage.setItem('username',USER);
+        setuser(USER)
+    }
     const postFunction = (postobj) => {
         axios.post(localhost + '/api/user/'+ props.page, postobj, withAuth).then(res => {
-        if (res.status === 200) setlogin(true)
-        localStorage.setItem('username', res.data.username);
-        setuser(res.data.username)
+        if (res.status === 200) {
+            LOGIN(res.data.username + ' ')
+        }
+        else {
+            LOGIN('')
+                }
     }).catch(error => { console.log(error) })
 }
     // handle events
@@ -43,6 +51,7 @@ const RenderLogin = props => {
                     case 'login':
                     default:
                         if (temp) {
+                            console.log('temp at renderlogin.jsx ', temp)
                             postFunction(postobj)
                         }
                         break;
