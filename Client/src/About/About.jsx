@@ -10,10 +10,6 @@ const About = props => {
                         <div className='text-muted container'>
                             <p> We are a group of enthusiasts currently studying in Internet of Everything, Pulwhore Campus, Nepal.
                 </p>
-                            <p>We make nothing and this was done by the work of only one person....until now that is.
-                </p>
-                            <p>Goodbye and byebye world. I will be back ith some more spicy news
-                </p>
                         </div>
                     </div>
                 </div>
