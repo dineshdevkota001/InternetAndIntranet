@@ -3,8 +3,6 @@ This is a project for the completion of the course Intranet and Internet. For ve
 
 
 
-So here we have to run the command "npm run" inside both these folders and we can see that we used fetch to communicate between the webapps.
-
 ## Frontend
 To run the frontend. open a terminal and run the command `npm run` inside it.
 
