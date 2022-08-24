@@ -4,11 +4,11 @@ This is a project for the completion of the course Intranet and Internet. For ve
 
 
 ## Frontend
-To run the frontend. open a terminal and run the command `npm run` inside it.
+To run the frontend. open a terminal and run the command `npm start` or `npm run start` inside it.
 
 Three.js is used to display models and React is used as the frontend library
 
 # Backend
 Backend uses nodejs with expressJs and mariadb for database. The uploaded images are kept on site.
 
-to run the backend open a terminal and run the command `npm run`.
+to run the backend open a terminal and run the command `npm start`.
